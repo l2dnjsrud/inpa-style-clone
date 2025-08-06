@@ -99,9 +99,4 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-
-  /* Set dark mode by default */
-  html {
-    @apply dark;
-  }
 }

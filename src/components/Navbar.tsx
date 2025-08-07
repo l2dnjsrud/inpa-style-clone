@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -11,14 +11,20 @@ import {
   Moon, 
   Sun, 
   ChevronDown,
-  Menu
+  Menu,
+  PenTool,
+  User,
+  LogOut,
+  LogIn
 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { title: "Develop", href: "/develop" },
@@ -30,6 +36,8 @@ export function Navbar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const [isDark, setIsDark] = useState(true);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -116,32 +124,58 @@ export function Navbar() {
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
-          {/* Page Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button 
-                variant="ghost" 
-                className="text-foreground/80 hover:text-foreground hover:bg-muted/50 font-medium"
-              >
-                Page
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="end" 
-              className="bg-popover/95 backdrop-blur-sm border-border/50"
+          {/* Write Button (Only when logged in) */}
+          {user && (
+            <Button 
+              onClick={() => navigate('/write')}
+              className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              <DropdownMenuItem className="hover:bg-muted/50">
-                <NavLink to="/about" className="w-full">About</NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-muted/50">
-                <NavLink to="/contact" className="w-full">Contact</NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-muted/50">
-                <NavLink to="/portfolio" className="w-full">Portfolio</NavLink>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <PenTool className="mr-2 h-4 w-4" />
+              글쓰기
+            </Button>
+          )}
+
+          {/* User Menu */}
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="text-foreground/80 hover:text-foreground hover:bg-muted/50 font-medium"
+                >
+                  <User className="mr-1 h-4 w-4" />
+                  <span className="hidden md:inline">{user.email?.split('@')[0]}</span>
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="end" 
+                className="bg-popover/95 backdrop-blur-sm border-border/50 w-48"
+              >
+                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                  내 포스트 관리
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/write')}>
+                  <PenTool className="mr-2 h-4 w-4" />
+                  새 글 작성
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={signOut} className="text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  로그아웃
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              onClick={() => navigate('/auth')}
+              variant="outline"
+              className="text-foreground hover:bg-muted"
+            >
+              <LogIn className="mr-2 h-4 w-4" />
+              <span className="hidden md:inline">로그인</span>
+            </Button>
+          )}
 
           {/* Mobile Menu */}
           <Button 

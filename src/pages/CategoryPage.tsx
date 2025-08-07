@@ -135,7 +135,7 @@ export default function CategoryPage() {
                         
                         {/* Tags */}
                         <div className="flex flex-wrap gap-2 mt-4">
-                          {post.tags.map((tag) => (
+                          {post.tags && post.tags.map((tag) => (
                             <Badge 
                               key={tag} 
                               variant="outline" 

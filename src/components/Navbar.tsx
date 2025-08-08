@@ -124,8 +124,8 @@ export function Navbar() {
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
-          {/* Write Button (Only when logged in) */}
-          {user && (
+          {/* Write Button (Only for admins) */}
+          {user && isAdmin && (
             <Button 
               onClick={() => navigate('/write')}
               className="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -152,13 +152,17 @@ export function Navbar() {
                 align="end" 
                 className="bg-popover/95 backdrop-blur-sm border-border/50 w-48"
               >
-                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                  내 포스트 관리
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/write')}>
-                  <PenTool className="mr-2 h-4 w-4" />
-                  새 글 작성
-                </DropdownMenuItem>
+                {isAdmin && (
+                  <>
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      관리자 대시보드
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/write')}>
+                      <PenTool className="mr-2 h-4 w-4" />
+                      새 글 작성
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={signOut} className="text-destructive">
                   <LogOut className="mr-2 h-4 w-4" />

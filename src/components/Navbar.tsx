@@ -27,9 +27,9 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
-  { title: "Develop", href: "/develop" },
-  { title: "DevOps", href: "/devops" },
-  { title: "DevKit", href: "/devkit" },
+  { title: "Develop", href: "/category/javascript" },
+  { title: "DevOps", href: "/category/aws" },
+  { title: "DevKit", href: "/category/vscode" },
 ];
 
 export function Navbar() {

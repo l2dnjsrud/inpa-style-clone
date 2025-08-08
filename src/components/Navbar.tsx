@@ -36,7 +36,7 @@ export function Navbar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const [isDark, setIsDark] = useState(true);
-  const { user, signOut } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
   const toggleTheme = () => {

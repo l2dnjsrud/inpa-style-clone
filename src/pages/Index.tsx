@@ -19,8 +19,15 @@ const Index = () => {
           <div className="overflow-y-auto h-[calc(100vh-4rem)]">
             <HeroSection />
             <div className="container mx-auto px-6 py-8">
-              <FeaturedPosts />
-              <RecentPosts />
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div className="lg:col-span-3">
+                  <FeaturedPosts />
+                  <RecentPosts />
+                </div>
+                <div className="lg:col-span-1 space-y-6">
+                  {/* Add sidebar components here if needed */}
+                </div>
+              </div>
             </div>
             <StatsSection />
             <CategoriesGrid />

@@ -1,66 +1,90 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Navbar } from "@/components/Navbar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { PostList } from "@/components/PostList";
+import { PopularPosts } from "@/components/PopularPosts";
+import { TagCloud } from "@/components/TagCloud";
 import { 
-  Calendar, 
-  Eye, 
-  MessageCircle, 
-  Heart,
   BookOpen,
-  Clock
+  Eye
 } from "lucide-react";
 
 interface Post {
   id: string;
   title: string;
   excerpt: string;
-  date: string;
+  category: string;
+  createdAt: string;
   views: number;
-  comments: number;
   likes: number;
-  readTime: number;
-  tags: string[];
+  author: string;
+  featured?: boolean;
 }
 
-const samplePosts: Post[] = [
-  {
-    id: "1",
-    title: "AWS Lambda 서버리스 완벽 가이드",
-    excerpt: "AWS Lambda를 활용한 서버리스 아키텍처 구축 방법을 상세히 알아보겠습니다. 비용 최적화부터 성능 튜닝까지 모든 것을 다룹니다.",
-    date: "2024-01-15",
-    views: 1230,
-    comments: 45,
-    likes: 89,
-    readTime: 12,
-    tags: ["AWS", "Serverless", "Lambda"]
-  },
-  {
-    id: "2", 
-    title: "Docker와 Kubernetes 실전 배포 전략",
-    excerpt: "프로덕션 환경에서 Docker 컨테이너를 Kubernetes로 관리하는 실전 노하우를 공유합니다.",
-    date: "2024-01-12",
-    views: 2100,
-    comments: 67,
-    likes: 156,
-    readTime: 18,
-    tags: ["Docker", "Kubernetes", "DevOps"]
-  },
-  {
-    id: "3",
-    title: "Next.js 14 App Router 마이그레이션 가이드",
-    excerpt: "Pages Router에서 App Router로 안전하게 마이그레이션하는 단계별 방법을 알아보겠습니다.",
-    date: "2024-01-10",
-    views: 890,
-    comments: 23,
-    likes: 67,
-    readTime: 15,
-    tags: ["Next.js", "React", "Migration"]
-  }
-];
+const getCategoryPosts = (category: string): Post[] => {
+  const allPosts: Record<string, Post[]> = {
+    aws: [
+      {
+        id: "aws-1",
+        title: "AWS Lambda 서버리스 완벽 가이드",
+        excerpt: "AWS Lambda를 활용한 서버리스 아키텍처 구축 방법을 상세히 알아보겠습니다. 비용 최적화부터 성능 튜닝까지 모든 것을 다룹니다.",
+        category: "AWS",
+        createdAt: "2024-01-15",
+        views: 1230,
+        likes: 89,
+        author: "개발자"
+      },
+      {
+        id: "aws-2",
+        title: "EC2 인스턴스 최적화 전략",
+        excerpt: "AWS EC2 인스턴스의 성능을 최적화하고 비용을 절감하는 실전 기법들을 소개합니다.",
+        category: "AWS",
+        createdAt: "2024-01-12",
+        views: 987,
+        likes: 67,
+        author: "클라우드 전문가"
+      }
+    ],
+    javascript: [
+      {
+        id: "js-1",
+        title: "모던 JavaScript ES2024 완벽 가이드",
+        excerpt: "최신 JavaScript 기능들을 활용한 모던 개발 방법론을 알아보겠습니다.",
+        category: "JavaScript",
+        createdAt: "2024-01-18",
+        views: 1456,
+        likes: 123,
+        author: "프론트엔드 개발자"
+      },
+      {
+        id: "js-2",
+        title: "Async/Await 패턴 마스터하기",
+        excerpt: "비동기 JavaScript의 핵심인 Async/Await를 완벽하게 이해하고 활용해보세요.",
+        category: "JavaScript",
+        createdAt: "2024-01-16",
+        views: 892,
+        likes: 78,
+        author: "JS 개발자"
+      }
+    ],
+    vscode: [
+      {
+        id: "vscode-1",
+        title: "VS Code 확장 개발 완벽 가이드",
+        excerpt: "나만의 VS Code 확장을 만들어보세요. 기초부터 배포까지 완벽 가이드입니다.",
+        category: "개발도구",
+        createdAt: "2024-01-14",
+        views: 756,
+        likes: 45,
+        author: "도구 개발자"
+      }
+    ]
+  };
+  
+  return allPosts[category] || [];
+};
 
 const categoryInfo = {
   aws: { title: "AWS", description: "클라우드 서비스 완전 정복", color: "text-orange-400" },
@@ -73,7 +97,34 @@ const categoryInfo = {
 
 export default function CategoryPage() {
   const { category } = useParams<{ category: string }>();
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [popularPosts, setPopularPosts] = useState<Post[]>([]);
+  const [tags, setTags] = useState<{ name: string; count: number }[]>([]);
+  
   const categoryData = categoryInfo[category as keyof typeof categoryInfo];
+
+  useEffect(() => {
+    if (category) {
+      const categoryPosts = getCategoryPosts(category);
+      setPosts(categoryPosts);
+      
+      // Set popular posts (sorted by views)
+      const popular = categoryPosts
+        .sort((a, b) => b.views - a.views)
+        .slice(0, 5);
+      setPopularPosts(popular);
+      
+      // Generate sample tags
+      const sampleTags = [
+        { name: "AWS", count: 12 },
+        { name: "JavaScript", count: 8 },
+        { name: "React", count: 15 },
+        { name: "DevOps", count: 6 },
+        { name: "Frontend", count: 10 }
+      ];
+      setTags(sampleTags);
+    }
+  }, [category]);
 
   if (!categoryData) {
     return <div>Category not found</div>;
@@ -101,94 +152,41 @@ export default function CategoryPage() {
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <BookOpen className="h-4 w-4" />
-                    {samplePosts.length} Articles
+                    {posts.length} Articles
                   </span>
                   <span className="flex items-center gap-2">
                     <Eye className="h-4 w-4" />
-                    {samplePosts.reduce((sum, post) => sum + post.views, 0)} Views
+                    {posts.reduce((sum, post) => sum + post.views, 0)} Views
                   </span>
                 </div>
               </div>
             </section>
 
-            {/* Posts Grid */}
-            <section className="py-16 px-6">
-              <div className="max-w-6xl mx-auto">
-                <div className="grid gap-8">
-                  {samplePosts.map((post, index) => (
-                    <Card 
-                      key={post.id} 
-                      className="card-hover bg-gradient-card border-border/50 overflow-hidden"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1">
-                            <h2 className="text-2xl font-bold mb-3 hover:text-primary transition-colors cursor-pointer">
-                              {post.title}
-                            </h2>
-                            <p className="text-muted-foreground leading-relaxed">
-                              {post.excerpt}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {post.tags && post.tags.map((tag) => (
-                            <Badge 
-                              key={tag} 
-                              variant="outline" 
-                              className="border-primary/30 bg-primary/10 text-primary"
-                            >
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      </CardHeader>
-
-                      <CardContent>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              {new Date(post.date).toLocaleDateString('ko-KR')}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="h-4 w-4" />
-                              {post.readTime}분
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Eye className="h-4 w-4" />
-                              {post.views.toLocaleString()}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <MessageCircle className="h-4 w-4" />
-                              {post.comments}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Heart className="h-4 w-4" />
-                              {post.likes}
-                            </span>
-                          </div>
-
-                          <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
-                            Read More
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                {/* Load More */}
-                <div className="text-center mt-12">
-                  <Button 
-                    size="lg" 
-                    className="bg-primary hover:bg-primary-glow text-primary-foreground shadow-glow-primary hover:shadow-glow-accent"
-                  >
-                    Load More Articles
-                  </Button>
+            {/* Main Content */}
+            <section className="py-8 px-6">
+              <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                  {/* Main Posts Area */}
+                  <div className="lg:col-span-3">
+                    <PostList 
+                      posts={posts}
+                      title={`${categoryData.title} 포스트`}
+                      showSearch={true}
+                      showCategoryFilter={false}
+                    />
+                  </div>
+                  
+                  {/* Sidebar */}
+                  <div className="lg:col-span-1 space-y-6">
+                    <PopularPosts 
+                      posts={popularPosts}
+                      title="인기 포스트"
+                    />
+                    <TagCloud 
+                      tags={tags}
+                      onTagClick={(tag) => console.log('Tag clicked:', tag)}
+                    />
+                  </div>
                 </div>
               </div>
             </section>

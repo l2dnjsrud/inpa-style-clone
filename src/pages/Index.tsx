@@ -4,6 +4,8 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
 import { CategoriesGrid } from "@/components/CategoriesGrid";
+import { FeaturedPosts } from "@/components/FeaturedPosts";
+import { RecentPosts } from "@/components/RecentPosts";
 
 const Index = () => {
   return (
@@ -16,6 +18,10 @@ const Index = () => {
           
           <div className="overflow-y-auto h-[calc(100vh-4rem)]">
             <HeroSection />
+            <div className="container mx-auto px-6 py-8">
+              <FeaturedPosts />
+              <RecentPosts />
+            </div>
             <StatsSection />
             <CategoriesGrid />
           </div>

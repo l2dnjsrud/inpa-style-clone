@@ -9,6 +9,7 @@ import CategoryPage from "./pages/CategoryPage";
 import AuthPage from "./pages/AuthPage";
 import WritePage from "./pages/WritePage";
 import DashboardPage from "./pages/DashboardPage";
+import PostPage from "./pages/PostPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/post/:id" element={<PostPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/write" element={<WritePage />} />
             <Route path="/dashboard" element={<DashboardPage />} />

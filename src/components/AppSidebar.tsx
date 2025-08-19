@@ -11,7 +11,8 @@ import {
   ChevronRight,
   User,
   Search,
-  Crown
+  Crown,
+  Shield
 } from "lucide-react";
 
 import {
@@ -74,6 +75,7 @@ const categories = [
 const navigationItems = [
   { title: "Home", url: "/", icon: Home },
   { title: "All Posts", url: "/posts", icon: FileText },
+  { title: "Admin", url: "/admin", icon: Shield },
 ];
 
 export function AppSidebar() {

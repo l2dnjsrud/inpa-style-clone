@@ -10,6 +10,7 @@ import AuthPage from "./pages/AuthPage";
 import WritePage from "./pages/WritePage";
 import DashboardPage from "./pages/DashboardPage";
 import PostPage from "./pages/PostPage";
+import AllPostsPage from "./pages/AllPostsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/posts" element={<AllPostsPage />} />
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/auth" element={<AuthPage />} />

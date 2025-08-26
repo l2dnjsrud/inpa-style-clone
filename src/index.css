@@ -128,63 +128,74 @@
   -webkit-line-clamp: 3;
 }
 
-/* Inpa Dev Blog Design System - Fantasy Tech Theme */
+/* 이원경's IU-Inspired Blog Design System - Bondee Style 3D Theme */
 
 @layer base {
   :root {
-    --background: 220 13% 9%;
-    --foreground: 43 74% 95%;
+    --background: 250 20% 8%;
+    --foreground: 310 20% 95%;
 
-    --card: 224 16% 11%;
-    --card-foreground: 43 74% 95%;
+    --card: 250 25% 12%;
+    --card-foreground: 310 20% 95%;
 
-    --popover: 224 16% 11%;
-    --popover-foreground: 43 74% 95%;
+    --popover: 250 25% 12%;
+    --popover-foreground: 310 20% 95%;
 
-    --primary: 43 96% 57%;
-    --primary-foreground: 220 13% 9%;
-    --primary-glow: 43 86% 67%;
+    --primary: 310 85% 65%;
+    --primary-foreground: 250 20% 8%;
+    --primary-glow: 310 75% 75%;
 
-    --secondary: 225 15% 15%;
-    --secondary-foreground: 43 74% 85%;
+    --secondary: 285 25% 20%;
+    --secondary-foreground: 310 20% 90%;
 
-    --muted: 225 15% 13%;
-    --muted-foreground: 43 30% 60%;
+    --muted: 270 20% 15%;
+    --muted-foreground: 310 15% 65%;
 
-    --accent: 28 95% 55%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 320 90% 70%;
+    --accent-foreground: 250 20% 8%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 43 74% 95%;
+    --destructive-foreground: 310 20% 95%;
 
-    --border: 225 15% 18%;
-    --input: 225 15% 18%;
-    --ring: 43 96% 57%;
+    --border: 270 25% 22%;
+    --input: 270 25% 22%;
+    --ring: 310 85% 65%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Fantasy gradient system */
-    --gradient-hero: linear-gradient(135deg, hsl(28 95% 35%), hsl(43 96% 45%), hsl(20 85% 40%));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(225 15% 13%));
+    /* IU-inspired gradient system with 3D depth */
+    --gradient-hero: linear-gradient(135deg, hsl(310 85% 65%), hsl(320 90% 70%), hsl(330 80% 75%));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(270 25% 18%));
     --gradient-accent: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary)));
+    --gradient-3d-purple: linear-gradient(135deg, hsl(310 85% 65%) 0%, hsl(290 75% 55%) 50%, hsl(270 65% 45%) 100%);
+    --gradient-3d-pink: linear-gradient(135deg, hsl(320 90% 70%) 0%, hsl(340 85% 60%) 50%, hsl(350 75% 50%) 100%);
     
-    /* Glow effects */
-    --glow-primary: 0 0 20px hsl(var(--primary) / 0.3);
-    --glow-accent: 0 0 30px hsl(var(--accent) / 0.4);
+    /* Enhanced glow effects for 3D feel */
+    --glow-primary: 0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2);
+    --glow-accent: 0 0 40px hsl(var(--accent) / 0.5), 0 0 80px hsl(var(--accent) / 0.3);
+    --glow-3d-depth: inset 0 2px 4px hsl(310 85% 85% / 0.3), 0 4px 8px hsl(310 85% 25% / 0.4);
     
-    /* Sidebar design system */
-    --sidebar-background: 222 15% 8%;
-    --sidebar-foreground: 43 74% 90%;
-    --sidebar-primary: 43 96% 57%;
-    --sidebar-primary-foreground: 220 13% 9%;
-    --sidebar-accent: 225 15% 12%;
-    --sidebar-accent-foreground: 43 74% 85%;
-    --sidebar-border: 225 15% 16%;
-    --sidebar-ring: 43 96% 57%;
+    /* Sidebar design system - Purple theme */
+    --sidebar-background: 250 25% 8%;
+    --sidebar-foreground: 310 20% 90%;
+    --sidebar-primary: 310 85% 65%;
+    --sidebar-primary-foreground: 250 20% 8%;
+    --sidebar-accent: 270 25% 15%;
+    --sidebar-accent-foreground: 310 20% 85%;
+    --sidebar-border: 270 25% 18%;
+    --sidebar-ring: 310 85% 65%;
 
-    /* Animation timing */
+    /* Animation timing for 3D effects */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-3d: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-float: transform 3s ease-in-out infinite;
+    
+    /* 3D perspective and depth */
+    --perspective-distance: 1000px;
+    --depth-1: translateZ(10px);
+    --depth-2: translateZ(20px);
+    --depth-3: translateZ(30px);
   }
 }
 
@@ -213,6 +224,124 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* 3D Bondee-style components */
+  .bondee-card {
+    background: var(--gradient-card);
+    border-radius: 1.5rem;
+    box-shadow: var(--glow-3d-depth);
+    transform-style: preserve-3d;
+    transition: var(--transition-3d);
+    perspective: var(--perspective-distance);
+  }
+
+  .bondee-card:hover {
+    transform: translateY(-8px) rotateX(5deg);
+    box-shadow: var(--glow-primary);
+  }
+
+  .avatar-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective-distance);
+    transition: var(--transition-3d);
+  }
+
+  .avatar-3d:hover {
+    transform: scale(1.05) rotateY(15deg);
+  }
+
+  .room-3d {
+    background: var(--gradient-3d-purple);
+    border-radius: 1.5rem;
+    transform-style: preserve-3d;
+    perspective: var(--perspective-distance);
+    box-shadow: var(--glow-3d-depth);
+    transition: var(--transition-3d);
+  }
+
+  .room-3d:hover {
+    transform: rotateX(5deg) rotateY(5deg);
+    box-shadow: var(--glow-accent);
+  }
+
+  .sparkle-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sparkle-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 50%);
+    animation: sparkle 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sparkle {
+    0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1) rotate(180deg); opacity: 1; }
+  }
+
+  .iu-heart {
+    color: hsl(310 85% 65%);
+    filter: drop-shadow(0 0 8px hsl(310 85% 65% / 0.8));
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .floating-3d {
+    animation: float-3d 6s ease-in-out infinite;
+  }
+
+  @keyframes float-3d {
+    0%, 100% { transform: translateY(0px) rotateX(0deg); }
+    33% { transform: translateY(-10px) rotateX(5deg); }
+    66% { transform: translateY(-5px) rotateX(-3deg); }
+  }
+
+  .animate-bounce-3d {
+    animation: bounce-3d 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-3d {
+    0%, 100% { transform: translateY(0) scale(1) rotateZ(0deg); }
+    25% { transform: translateY(-10px) scale(1.05) rotateZ(2deg); }
+    50% { transform: translateY(-20px) scale(1.1) rotateZ(0deg); }
+    75% { transform: translateY(-10px) scale(1.05) rotateZ(-2deg); }
+  }
+
+  .iu-gradient {
+    background: linear-gradient(135deg, hsl(310 85% 65%) 0%, hsl(320 90% 70%) 25%, hsl(330 80% 75%) 50%, hsl(340 75% 80%) 75%, hsl(350 70% 85%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .room-element {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .room-element:hover {
+    transform: translateZ(20px) scale(1.1);
+    filter: drop-shadow(0 10px 20px hsl(310 85% 25% / 0.3));
+  }
+
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
 

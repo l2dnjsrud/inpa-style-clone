@@ -38,14 +38,14 @@ const PostPage = () => {
       const mockPosts: Record<string, Post> = {
         "1": {
           id: "1",
-          title: "React 18의 새로운 기능들",
-          excerpt: "React 18에서 도입된 Concurrent Features와 Suspense의 활용법을 알아보세요.",
-          content: `<h2>React 18의 주요 새 기능들</h2><p>React 18은 많은 새로운 기능과 개선사항을 도입했습니다.</p>`,
-          category: "프론트엔드",
+          title: "ComfyUI 시작하기",
+          excerpt: "ComfyUI로 AI 이미지 생성을 시작하는 방법을 알아보세요.",
+          content: `<h2>ComfyUI로 AI 이미지 생성 시작하기</h2><p>ComfyUI는 강력한 노드 기반 AI 이미지 생성 도구입니다.</p>`,
+          category: "AI 이미지 생성",
           createdAt: "2024-01-15",
-          views: 245,
-          likes: 12,
-          author: "개발자",
+          views: 0,
+          likes: 0,
+          author: "이원경",
         },
       };
 

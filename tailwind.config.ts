@@ -102,6 +102,29 @@ export default {
 				'typing': {
 					'0%': { width: '0' },
 					'100%': { width: '100%' }
+				},
+				'float-3d': {
+					'0%, 100%': { transform: 'translateY(0px) rotateX(0deg)' },
+					'33%': { transform: 'translateY(-10px) rotateX(5deg)' },
+					'66%': { transform: 'translateY(-5px) rotateX(-3deg)' }
+				},
+				'sparkle-3d': {
+					'0%, 100%': { transform: 'scale(0) rotate(0deg)', opacity: '0' },
+					'50%': { transform: 'scale(1) rotate(180deg)', opacity: '1' }
+				},
+				'heartbeat': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.1)' }
+				},
+				'wiggle-3d': {
+					'0%, 100%': { transform: 'rotate(-3deg)' },
+					'50%': { transform: 'rotate(3deg)' }
+				},
+				'bounce-3d': {
+					'0%, 100%': { transform: 'translateY(0) scale(1)' },
+					'25%': { transform: 'translateY(-5px) scale(1.02)' },
+					'50%': { transform: 'translateY(-10px) scale(1.05)' },
+					'75%': { transform: 'translateY(-5px) scale(1.02)' }
 				}
 			},
 			animation: {
@@ -110,7 +133,12 @@ export default {
 				'blink': 'blink 1s infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'glow': 'glow 2s ease-in-out infinite alternate',
-				'typing': 'typing 3s steps(30, end)'
+				'typing': 'typing 3s steps(30, end)',
+				'float-3d': 'float-3d 6s ease-in-out infinite',
+				'sparkle-3d': 'sparkle-3d 3s ease-in-out infinite',
+				'heartbeat': 'heartbeat 2s ease-in-out infinite',
+				'wiggle-3d': 'wiggle-3d 1s ease-in-out infinite',
+				'bounce-3d': 'bounce-3d 2s ease-in-out infinite'
 			}
 		}
 	},

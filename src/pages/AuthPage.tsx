@@ -73,8 +73,8 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="hero-title text-2xl font-bold">Inpa Dev Blog</CardTitle>
-          <CardDescription>개발자를 위한 블로그 플랫폼</CardDescription>
+          <CardTitle className="hero-title text-2xl font-bold">이원경 블로그 💜</CardTitle>
+          <CardDescription>AI 이미지 생성과 프롬프트 엔지니어링을 다루는 개발 블로그</CardDescription>
         </CardHeader>
         
         <CardContent>

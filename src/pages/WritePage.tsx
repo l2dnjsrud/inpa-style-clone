@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import { Navbar } from '@/components/Navbar';
+import { MediaUpload } from '@/components/MediaUpload';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useAchievements } from '@/hooks/useAchievements';
@@ -28,6 +29,7 @@ export default function WritePage() {
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
+  const [mediaFiles, setMediaFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   
   const { user } = useAuth();
@@ -251,6 +253,16 @@ export default function WritePage() {
                         </div>
                       )}
                     </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>미디어 첫부하기 📸</Label>
+                    <MediaUpload 
+                      onFilesChange={setMediaFiles}
+                      maxFiles={10}
+                      maxFileSize={50}
+                      acceptedTypes={['image/*', 'video/*']}
+                    />
                   </div>
 
                   <div className="space-y-2">

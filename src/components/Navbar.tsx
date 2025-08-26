@@ -56,12 +56,12 @@ export function Navbar() {
             to="/" 
             className="flex items-center gap-2 font-bold text-xl hover:text-primary transition-colors"
           >
-            <div className="h-8 w-8 rounded-lg bg-gradient-hero flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">I</span>
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">원</span>
             </div>
-            <span className="hidden md:block">Inpa Dev</span>
-            <Badge variant="outline" className="hidden md:inline-flex border-primary/50 text-primary text-xs">
-              👨‍💻
+            <span className="hidden md:block">이원경 블로그</span>
+            <Badge variant="outline" className="hidden md:inline-flex border-purple-300 text-purple-600 text-xs">
+              💜
             </Badge>
           </NavLink>
         </div>

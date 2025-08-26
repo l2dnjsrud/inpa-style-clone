@@ -14,8 +14,7 @@ import {
   User,
   Search,
   Crown,
-  Shield,
-  Gamepad2
+  Shield
 } from "lucide-react";
 
 import {
@@ -38,7 +37,6 @@ import { Button } from "@/components/ui/button";
 const navigationItems = [
   { title: "Home", url: "/", icon: Home },
   { title: "All Posts", url: "/posts", icon: FileText },
-  { title: "Game", url: "/game", icon: Gamepad2 },
   { title: "Admin", url: "/admin", icon: Shield },
 ];
 

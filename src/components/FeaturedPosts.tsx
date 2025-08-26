@@ -21,35 +21,35 @@ export function FeaturedPosts() {
     const sampleFeaturedPosts: Post[] = [
       {
         id: "featured-1",
-        title: "2024년 프론트엔드 개발 트렌드",
-        excerpt: "올해 주목해야 할 프론트엔드 기술들과 개발 트렌드를 정리했습니다. React 19, Vue 3.5, 새로운 번들러들까지 모든 것을 다룹니다.",
-        category: "트렌드",
+        title: "ComfyUI로 시작하는 AI 이미지 생성 완벽 가이드",
+        excerpt: "AI 이미지 생성의 혁신, ComfyUI 노드 기반 워크플로우를 처음부터 끝까지 상세히 설명합니다. 프롬프트 엔지니어링 팁도 함께 공유해요! ✨",
+        category: "comfyui",
         createdAt: "2024-01-20",
-        views: 1250,
-        likes: 89,
-        author: "Tech Lead",
+        views: 0,
+        likes: 0,
+        author: "이원경",
         featured: true,
       },
       {
         id: "featured-2",
-        title: "AI 시대의 개발자, 어떻게 준비할까?",
-        excerpt: "ChatGPT, GitHub Copilot 등 AI 도구들이 개발 생산성을 높이고 있습니다. 개발자로서 AI와 함께 성장하는 방법을 알아보세요.",
-        category: "AI/ML",
+        title: "프롬프트 엔지니어가 되기까지의 여정 💜",
+        excerpt: "10년차 유애나에서 프롬프트 엔지니어로! AI 시대에 꼭 필요한 스킬과 제가 걸어온 길을 솔직하게 공유합니다. 아이유 덕질과 개발의 조화도 함께요!",
+        category: "prompt-engineering",
         createdAt: "2024-01-18",
-        views: 987,
-        likes: 67,
-        author: "AI Researcher",
+        views: 0,
+        likes: 0,
+        author: "이원경",
         featured: true,
       },
       {
         id: "featured-3",
-        title: "클린 코드를 위한 실전 가이드",
-        excerpt: "읽기 쉽고 유지보수가 용이한 코드를 작성하는 방법들을 실제 예제와 함께 설명합니다. 함수 네이밍부터 아키텍처까지 모든 것을 다룹니다.",
-        category: "베스트 프랙티스",
+        title: "Python으로 즐기는 바이브 코딩 🐍",
+        excerpt: "일상 속 소소한 문제들을 Python으로 해결하며 느끼는 코딩의 재미! 카페에서, 여행지에서 영감을 받은 프로젝트들을 소개합니다.",
+        category: "python-vibe",
         createdAt: "2024-01-15",
-        views: 756,
-        likes: 45,
-        author: "Senior Dev",
+        views: 0,
+        likes: 0,
+        author: "이원경",
         featured: true,
       },
     ];
@@ -63,8 +63,10 @@ export function FeaturedPosts() {
   return (
     <section className="mb-12">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">추천 포스트</h2>
-        <div className="h-px bg-gradient-to-r from-primary/50 to-transparent flex-1 ml-4"></div>
+        <h2 className="text-2xl font-bold text-gray-800">
+          이원경의 최신 포스트
+        </h2>
+        <div className="h-px bg-gradient-to-r from-gray-300/50 to-transparent flex-1 ml-4"></div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {featuredPosts.map((post) => (

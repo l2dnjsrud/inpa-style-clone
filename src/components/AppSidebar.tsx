@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useCategoryCounts } from "@/hooks/useCategoryCounts";
+import { SearchDialog } from "@/components/SearchDialog";
 import {
   Home,
   Code,
@@ -31,47 +33,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
-const categories = [
-  { 
-    title: "ComfyUI", 
-    url: "/category/comfyui", 
-    icon: Code, 
-    count: 0,
-    rank: 1 
-  },
-  { 
-    title: "AI 이미지 생성", 
-    url: "/category/ai-image", 
-    icon: Server, 
-    count: 0,
-    rank: 2 
-  },
-  { 
-    title: "프롬프트 엔지니어링", 
-    url: "/category/prompt-engineering", 
-    icon: Settings, 
-    count: 0,
-    rank: 3 
-  },
-  { 
-    title: "아이유 덕질 💜", 
-    url: "/category/iu-fan", 
-    icon: FileText, 
-    count: 0 
-  },
-  { 
-    title: "여행 & 카페", 
-    url: "/category/travel-cafe", 
-    icon: Code, 
-    count: 0 
-  },
-  { 
-    title: "Python & 바이브코딩", 
-    url: "/category/python-vibe", 
-    icon: Database, 
-    count: 0 
-  },
-];
+
 
 const navigationItems = [
   { title: "Home", url: "/", icon: Home },
@@ -85,7 +47,47 @@ export function AppSidebar() {
   const collapsed = state === "collapsed";
   const location = useLocation();
   const currentPath = location.pathname;
+  const navigate = useNavigate();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(["categories"]));
+  const [searchOpen, setSearchOpen] = useState(false);
+  const { getCountForCategory } = useCategoryCounts();
+
+  // Create categories with dynamic counts
+  const categoriesWithCounts = [
+    { 
+      title: "ComfyUI", 
+      url: "/category/comfyui", 
+      icon: Code, 
+      count: getCountForCategory('comfyui'),
+      rank: 1 
+    },
+    { 
+      title: "AI 이미지 생성", 
+      url: "/category/ai-image", 
+      icon: Server, 
+      count: getCountForCategory('ai-image'),
+      rank: 2 
+    },
+    { 
+      title: "프롬프트 엔지니어링", 
+      url: "/category/prompt-engineering", 
+      icon: Settings, 
+      count: getCountForCategory('prompt-engineering'),
+      rank: 3 
+    },
+    { 
+      title: "일상 & 여행", 
+      url: "/category/travel-cafe", 
+      icon: FileText, 
+      count: getCountForCategory('travel-cafe')
+    },
+    { 
+      title: "Python & 바이브코딩", 
+      url: "/category/python-vibe", 
+      icon: Database, 
+      count: getCountForCategory('python-vibe')
+    },
+  ];
 
   const isActive = (path: string) => currentPath === path;
   
@@ -119,16 +121,26 @@ export function AppSidebar() {
               </Avatar>
               <div>
                 <h3 className="font-semibold text-sidebar-foreground">이원경</h3>
-                <p className="text-sm text-sidebar-foreground/70">Prompt Engineer & IU Fan 💜</p>
+                <p className="text-sm text-sidebar-foreground/70">Prompt Engineer & Developer</p>
               </div>
             </div>
             
             <div className="flex gap-2 mt-4">
-              <Button size="sm" variant="outline" className="flex-1 border-sidebar-border hover:bg-sidebar-accent">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="flex-1 border-sidebar-border hover:bg-sidebar-accent"
+                onClick={() => navigate('/')}
+              >
                 <Home className="h-4 w-4 mr-2" />
                 Home
               </Button>
-              <Button size="sm" variant="outline" className="border-sidebar-border hover:bg-sidebar-accent">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="border-sidebar-border hover:bg-sidebar-accent"
+                onClick={() => setSearchOpen(true)}
+              >
                 <Search className="h-4 w-4" />
               </Button>
             </div>
@@ -185,7 +197,7 @@ export function AppSidebar() {
           {(!collapsed && expandedGroups.has("categories")) && (
             <SidebarGroupContent>
               <SidebarMenu>
-                {categories.map((category) => (
+                {categoriesWithCounts.map((category) => (
                   <SidebarMenuItem key={category.title}>
                     <SidebarMenuButton asChild className={getNavClasses(category.url)}>
                       <NavLink to={category.url}>
@@ -217,7 +229,7 @@ export function AppSidebar() {
           {collapsed && (
             <SidebarGroupContent>
               <SidebarMenu>
-                {categories.slice(0, 6).map((category) => (
+                {categoriesWithCounts.slice(0, 6).map((category) => (
                   <SidebarMenuItem key={category.title}>
                     <SidebarMenuButton asChild className={getNavClasses(category.url)}>
                       <NavLink to={category.url} title={`${category.title} (${category.count})`}>
@@ -231,6 +243,12 @@ export function AppSidebar() {
           )}
         </SidebarGroup>
       </SidebarContent>
+      
+      {/* Search Dialog */}
+      <SearchDialog 
+        open={searchOpen} 
+        onOpenChange={setSearchOpen} 
+      />
     </Sidebar>
   );
 }

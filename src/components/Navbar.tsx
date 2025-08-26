@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SearchDialog } from "@/components/SearchDialog";
 import { 
   SidebarTrigger, 
   useSidebar 
@@ -27,21 +28,35 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
-  { title: "Develop", href: "/category/javascript" },
-  { title: "DevOps", href: "/category/aws" },
-  { title: "DevKit", href: "/category/vscode" },
+  { title: "ComfyUI", href: "/category/comfyui" },
+  { title: "AI 이미지 생성", href: "/category/ai-image" },
+  { title: "프롬프트 엔지니어링", href: "/category/prompt-engineering" },
 ];
 
 export function Navbar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || localStorage.getItem('theme') === 'dark';
+    }
+    return false;
+  });
+  const [searchOpen, setSearchOpen] = useState(false);
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    
+    if (newTheme) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   return (
@@ -56,13 +71,10 @@ export function Navbar() {
             to="/" 
             className="flex items-center gap-2 font-bold text-xl hover:text-primary transition-colors"
           >
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <span className="text-white font-bold text-sm">원</span>
             </div>
             <span className="hidden md:block">이원경 블로그</span>
-            <Badge variant="outline" className="hidden md:inline-flex border-purple-300 text-purple-600 text-xs">
-              💜
-            </Badge>
           </NavLink>
         </div>
 
@@ -110,6 +122,7 @@ export function Navbar() {
             variant="ghost" 
             size="icon"
             className="text-foreground/80 hover:text-foreground hover:bg-muted/50"
+            onClick={() => setSearchOpen(true)}
           >
             <Search className="h-5 w-5" />
           </Button>
@@ -191,6 +204,9 @@ export function Navbar() {
           </Button>
         </div>
       </div>
+      
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 }

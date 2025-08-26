@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useRoom, ROOM_THEMES, MOOD_LIGHTING } from '@/hooks/useRoom';
 import { useToast } from '@/hooks/use-toast';
-import { Home, Palette, Lightbulb, Star, Heart, Sparkles, Coffee } from 'lucide-react';
+import { Home, Palette, Lightbulb, Star, Heart, Sparkles, Coffee, Move, RotateCw } from 'lucide-react';
 import anime from 'animejs';
 
 interface RoomCustomizer3DProps {
@@ -26,6 +28,13 @@ export function RoomCustomizer3D({ onSave, embedded = false }: RoomCustomizer3DP
     custom_elements: {}
   });
   const [saving, setSaving] = useState(false);
+  const [selectedFurniture, setSelectedFurniture] = useState<string | null>(null);
+  const [furniturePositions, setFurniturePositions] = useState({
+    desk: { x: 50, y: 60, rotation: 0 },
+    chair: { x: 20, y: 70, rotation: 0 },
+    monitor: { x: 50, y: 50, rotation: 0 },
+    plant: { x: 80, y: 80, rotation: 0 }
+  });
 
   useEffect(() => {
     if (room) {
@@ -105,17 +114,49 @@ export function RoomCustomizer3D({ onSave, embedded = false }: RoomCustomizer3DP
         {/* Floor */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/10 to-transparent rounded-b-xl" />
         
-        {/* Furniture Elements */}
-        <div className="absolute bottom-16 left-8 room-element floating-3d">
+        {/* Furniture Elements with Dynamic Positioning */}
+        <div 
+          className="absolute room-element floating-3d"
+          style={{
+            bottom: `${100 - furniturePositions.chair.y}%`,
+            left: `${furniturePositions.chair.x}%`,
+            transform: `translate(-50%, 50%) rotate(${furniturePositions.chair.rotation}deg)`
+          }}
+        >
           <div className="text-4xl">🪑</div>
         </div>
         
-        <div className="absolute bottom-20 right-12 room-element floating-3d">
+        <div 
+          className="absolute room-element floating-3d"
+          style={{
+            bottom: `${100 - furniturePositions.monitor.y}%`,
+            left: `${furniturePositions.monitor.x}%`,
+            transform: `translate(-50%, 50%) rotate(${furniturePositions.monitor.rotation}deg)`
+          }}
+        >
           <div className="text-3xl">💻</div>
         </div>
         
-        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 room-element floating-3d">
+        <div 
+          className="absolute room-element floating-3d"
+          style={{
+            bottom: `${100 - furniturePositions.desk.y}%`,
+            left: `${furniturePositions.desk.x}%`,
+            transform: `translate(-50%, 50%) rotate(${furniturePositions.desk.rotation}deg)`
+          }}
+        >
           <div className="text-3xl">🖥️</div>
+        </div>
+        
+        <div 
+          className="absolute room-element floating-3d"
+          style={{
+            bottom: `${100 - furniturePositions.plant.y}%`,
+            left: `${furniturePositions.plant.x}%`,
+            transform: `translate(-50%, 50%) rotate(${furniturePositions.plant.rotation}deg)`
+          }}
+        >
+          <div className="text-xl">🪴</div>
         </div>
         
         {/* IU-themed decorations */}

@@ -12,7 +12,8 @@ import {
   User,
   Search,
   Crown,
-  Shield
+  Shield,
+  Gamepad2
 } from "lucide-react";
 
 import {
@@ -75,6 +76,7 @@ const categories = [
 const navigationItems = [
   { title: "Home", url: "/", icon: Home },
   { title: "All Posts", url: "/posts", icon: FileText },
+  { title: "Game", url: "/game", icon: Gamepad2 },
   { title: "Admin", url: "/admin", icon: Shield },
 ];
 

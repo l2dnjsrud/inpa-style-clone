@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          id: string
+          name: string
+          description: string
+          icon: string | null
+          category: string
+          condition_type: string
+          condition_value: number
+          reward_type: string | null
+          reward_data: Json | null
+          rarity: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description: string
+          icon?: string | null
+          category: string
+          condition_type: string
+          condition_value: number
+          reward_type?: string | null
+          reward_data?: Json | null
+          rarity?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string
+          icon?: string | null
+          category?: string
+          condition_type?: string
+          condition_value?: number
+          reward_type?: string | null
+          reward_data?: Json | null
+          rarity?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           color: string | null
@@ -47,6 +89,42 @@ export type Database = {
           post_count?: number | null
           slug?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      collectible_items: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          category: string
+          item_type: string
+          rarity: string | null
+          unlock_condition: string | null
+          visual_data: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          category: string
+          item_type: string
+          rarity?: string | null
+          unlock_condition?: string | null
+          visual_data: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          category?: string
+          item_type?: string
+          rarity?: string | null
+          unlock_condition?: string | null
+          visual_data?: Json
+          created_at?: string
         }
         Relationships: []
       }
@@ -140,6 +218,219 @@ export type Database = {
         }
         Relationships: []
       }
+      user_achievements: {
+        Row: {
+          id: string
+          user_id: string
+          achievement_id: string
+          progress: number | null
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          achievement_id: string
+          progress?: number | null
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          achievement_id?: string
+          progress?: number | null
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      user_activities: {
+        Row: {
+          id: string
+          user_id: string
+          activity_type: string
+          xp_gained: number | null
+          reference_id: string | null
+          metadata: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          activity_type: string
+          xp_gained?: number | null
+          reference_id?: string | null
+          metadata?: Json | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          activity_type?: string
+          xp_gained?: number | null
+          reference_id?: string | null
+          metadata?: Json | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      user_avatars: {
+        Row: {
+          id: string
+          user_id: string
+          character_name: string | null
+          avatar_style: string | null
+          hair_style: string | null
+          hair_color: string | null
+          skin_tone: string | null
+          clothing: string | null
+          clothing_color: string | null
+          accessories: Json | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          character_name?: string | null
+          avatar_style?: string | null
+          hair_style?: string | null
+          hair_color?: string | null
+          skin_tone?: string | null
+          clothing?: string | null
+          clothing_color?: string | null
+          accessories?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          character_name?: string | null
+          avatar_style?: string | null
+          hair_style?: string | null
+          hair_color?: string | null
+          skin_tone?: string | null
+          clothing?: string | null
+          clothing_color?: string | null
+          accessories?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_experience: {
+        Row: {
+          id: string
+          user_id: string
+          total_xp: number | null
+          current_level: number | null
+          xp_to_next_level: number | null
+          writing_xp: number | null
+          engagement_xp: number | null
+          consistency_xp: number | null
+          learning_xp: number | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          total_xp?: number | null
+          current_level?: number | null
+          xp_to_next_level?: number | null
+          writing_xp?: number | null
+          engagement_xp?: number | null
+          consistency_xp?: number | null
+          learning_xp?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          total_xp?: number | null
+          current_level?: number | null
+          xp_to_next_level?: number | null
+          writing_xp?: number | null
+          engagement_xp?: number | null
+          consistency_xp?: number | null
+          learning_xp?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_inventory: {
+        Row: {
+          id: string
+          user_id: string
+          item_id: string
+          quantity: number | null
+          acquired_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          item_id: string
+          quantity?: number | null
+          acquired_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          item_id?: string
+          quantity?: number | null
+          acquired_at?: string
+        }
+        Relationships: []
+      }
+      user_rooms: {
+        Row: {
+          id: string
+          user_id: string
+          room_theme: string | null
+          background_color: string | null
+          furniture: Json | null
+          decorations: Json | null
+          mood_lighting: string | null
+          custom_elements: Json | null
+          room_level: number | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          room_theme?: string | null
+          background_color?: string | null
+          furniture?: Json | null
+          decorations?: Json | null
+          mood_lighting?: string | null
+          custom_elements?: Json | null
+          room_level?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          room_theme?: string | null
+          background_color?: string | null
+          furniture?: Json | null
+          decorations?: Json | null
+          mood_lighting?: string | null
+          custom_elements?: Json | null
+          room_level?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -166,6 +457,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      award_xp: {
+        Args: {
+          user_id_param: string
+          xp_amount: number
+          activity_type_param: string
+          reference_id_param?: string
+        }
+        Returns: void
+      }
+      calculate_level_from_xp: {
+        Args: { total_xp: number }
+        Returns: number
+      }
+      calculate_xp_for_next_level: {
+        Args: { current_level: number }
+        Returns: number
+      }
       get_user_role: {
         Args: { user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]

@@ -19,4 +19,40 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Core React libraries
+          'react-vendor': ['react', 'react-dom'],
+          
+          // UI library chunks
+          'ui-vendor': [
+            '@radix-ui/react-slot',
+            '@radix-ui/react-dialog', 
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-progress',
+            '@radix-ui/react-select'
+          ],
+          
+          // Router and forms
+          'router-forms': ['react-router-dom', 'react-hook-form'],
+          
+          // Supabase and database
+          'supabase': ['@supabase/supabase-js'],
+          
+          // Animations and charts
+          'animations': ['animejs'],
+          'charts': ['recharts'],
+          
+          // Icons
+          'icons': ['lucide-react'],
+          
+          // Utilities
+          'utils': ['date-fns', 'clsx', 'tailwind-merge']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  }
 }));

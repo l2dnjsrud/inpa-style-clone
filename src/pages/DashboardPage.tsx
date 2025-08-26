@@ -10,7 +10,9 @@ import { Navbar } from '@/components/Navbar';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Edit3, Trash2, Eye, EyeOff, Plus } from 'lucide-react';
+import { Edit3, Trash2, Eye, EyeOff, Plus, Gamepad2 } from 'lucide-react';
+import { ExperienceWidget } from '@/components/ExperienceWidget';
+import { AchievementGallery } from '@/components/AchievementGallery';
 
 interface Post {
   id: string;
@@ -152,6 +154,42 @@ export default function DashboardPage() {
           
           <div className="overflow-y-auto h-[calc(100vh-4rem)] p-6">
             <div className="max-w-6xl mx-auto">
+              {/* Top Row - Gamification Widgets */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div className="lg:col-span-1">
+                  <ExperienceWidget compact />
+                </div>
+                <div className="lg:col-span-2">
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="flex items-center gap-2">
+                        <Gamepad2 className="w-5 h-5" />
+                        Quick Actions
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex gap-3">
+                        <Button 
+                          onClick={() => navigate('/write')} 
+                          className="flex items-center gap-2"
+                        >
+                          <Plus className="h-4 w-4" />
+                          Write Post
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          onClick={() => navigate('/game')}
+                          className="flex items-center gap-2"
+                        >
+                          <Gamepad2 className="h-4 w-4" />
+                          View Progress
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+              
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold">내 포스트 관리</h1>
                 <Button onClick={() => navigate('/write')} className="flex items-center gap-2">

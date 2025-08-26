@@ -33,43 +33,43 @@ import { Button } from "@/components/ui/button";
 
 const categories = [
   { 
-    title: "AWS", 
-    url: "/category/aws", 
-    icon: Server, 
-    count: 34,
+    title: "ComfyUI", 
+    url: "/category/comfyui", 
+    icon: Code, 
+    count: 0,
     rank: 1 
   },
   { 
-    title: "Linux", 
-    url: "/category/linux", 
-    icon: Code, 
-    count: 39,
+    title: "AI 이미지 생성", 
+    url: "/category/ai-image", 
+    icon: Server, 
+    count: 0,
     rank: 2 
   },
   { 
-    title: "Node.js", 
-    url: "/category/nodejs", 
+    title: "프롬프트 엔지니어링", 
+    url: "/category/prompt-engineering", 
     icon: Settings, 
-    count: 76,
+    count: 0,
     rank: 3 
   },
   { 
-    title: "JavaScript", 
-    url: "/category/javascript", 
+    title: "아이유 덕질 💜", 
+    url: "/category/iu-fan", 
     icon: FileText, 
-    count: 65 
+    count: 0 
   },
   { 
-    title: "CSS", 
-    url: "/category/css", 
+    title: "여행 & 카페", 
+    url: "/category/travel-cafe", 
     icon: Code, 
-    count: 42 
+    count: 0 
   },
   { 
-    title: "MySQL", 
-    url: "/category/mysql", 
+    title: "Python & 바이브코딩", 
+    url: "/category/python-vibe", 
     icon: Database, 
-    count: 33 
+    count: 0 
   },
 ];
 
@@ -114,12 +114,12 @@ export function AppSidebar() {
               <Avatar className="h-12 w-12 border-2 border-sidebar-primary">
                 <AvatarImage src="/placeholder.svg" />
                 <AvatarFallback className="bg-gradient-hero text-primary-foreground font-bold">
-                  ID
+                  WK
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="font-semibold text-sidebar-foreground">Inpa Dev</h3>
-                <p className="text-sm text-sidebar-foreground/70">인파</p>
+                <h3 className="font-semibold text-sidebar-foreground">이원경</h3>
+                <p className="text-sm text-sidebar-foreground/70">Prompt Engineer & IU Fan 💜</p>
               </div>
             </div>
             
@@ -141,7 +141,7 @@ export function AppSidebar() {
             <Avatar className="h-10 w-10 mx-auto border-2 border-sidebar-primary">
               <AvatarImage src="/placeholder.svg" />
               <AvatarFallback className="bg-gradient-hero text-primary-foreground font-bold text-sm">
-                ID
+                WK
               </AvatarFallback>
             </Avatar>
           </div>

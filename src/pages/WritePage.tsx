@@ -17,8 +17,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { X } from 'lucide-react';
 
 const categories = [
-  'javascript', 'python', 'react', 'nodejs', 'typescript', 
-  'css', 'html', 'git', 'database', 'linux', 'devops', 'ai'
+  'comfyui', 'ai-image', 'prompt-engineering', 'iu-fan', 'travel-cafe', 'python-vibe',
+  'ai-video', 'daily-life', 'tech-review', 'creative-coding'
 ];
 
 export default function WritePage() {

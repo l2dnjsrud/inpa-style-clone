@@ -25,6 +25,149 @@ interface Post {
 
 const getCategoryPosts = (category: string): Post[] => {
   const allPosts: Record<string, Post[]> = {
+    comfyui: [
+      {
+        id: "comfy-1",
+        title: "ComfyUI 초보자를 위한 완벽 가이드",
+        excerpt: "ComfyUI의 기본 개념부터 고급 노드 활용까지, AI 이미지 생성의 모든 것을 알아보세요.",
+        category: "ComfyUI",
+        createdAt: "2024-01-20",
+        views: 2156,
+        likes: 189,
+        author: "이원경",
+        featured: true
+      },
+      {
+        id: "comfy-2",
+        title: "워크플로우 최적화 전략",
+        excerpt: "효율적인 ComfyUI 워크플로우 구성으로 생산성을 극대화하는 방법을 소개합니다.",
+        category: "ComfyUI",
+        createdAt: "2024-01-18",
+        views: 1834,
+        likes: 145,
+        author: "이원경"
+      },
+      {
+        id: "comfy-3",
+        title: "커스텀 노드 개발하기",
+        excerpt: "나만의 ComfyUI 커스텀 노드를 개발하여 워크플로우를 확장해보세요.",
+        category: "ComfyUI",
+        createdAt: "2024-01-15",
+        views: 1267,
+        likes: 98,
+        author: "이원경"
+      }
+    ],
+    "ai-image": [
+      {
+        id: "ai-img-1",
+        title: "Stable Diffusion 마스터하기",
+        excerpt: "Stable Diffusion의 핵심 개념과 고품질 이미지 생성 기법을 완벽하게 정리했습니다.",
+        category: "AI 이미지 생성",
+        createdAt: "2024-01-22",
+        views: 3421,
+        likes: 278,
+        author: "이원경",
+        featured: true
+      },
+      {
+        id: "ai-img-2",
+        title: "AI 모델 비교 분석",
+        excerpt: "SDXL, MidJourney, DALL-E 3 등 주요 AI 이미지 생성 모델들을 비교 분석합니다.",
+        category: "AI 이미지 생성",
+        createdAt: "2024-01-19",
+        views: 2567,
+        likes: 201,
+        author: "이원경"
+      },
+      {
+        id: "ai-img-3",
+        title: "LoRA 훈련 완벽 가이드",
+        excerpt: "나만의 스타일을 만들어내는 LoRA 훈련 방법을 단계별로 설명합니다.",
+        category: "AI 이미지 생성",
+        createdAt: "2024-01-16",
+        views: 1923,
+        likes: 156,
+        author: "이원경"
+      }
+    ],
+    "prompt-engineering": [
+      {
+        id: "prompt-1",
+        title: "프롬프트 엔지니어링 기초",
+        excerpt: "효과적인 프롬프트 작성을 위한 기본 원칙과 실전 기법들을 알아보세요.",
+        category: "프롬프트 엔지니어링",
+        createdAt: "2024-01-21",
+        views: 1876,
+        likes: 142,
+        author: "이원경"
+      },
+      {
+        id: "prompt-2",
+        title: "네거티브 프롬프트 활용법",
+        excerpt: "원하지 않는 요소를 제거하는 네거티브 프롬프트의 효과적인 사용법을 배워보세요.",
+        category: "프롬프트 엔지니어링",
+        createdAt: "2024-01-17",
+        views: 1345,
+        likes: 98,
+        author: "이원경"
+      }
+    ],
+    "travel-cafe": [
+      {
+        id: "travel-1",
+        title: "아이유 콘서트 전국 투어 후기",
+        excerpt: "Golden Hour 콘서트를 따라다니며 느낀 감동과 각 도시별 맛집 정보를 공유합니다.",
+        category: "일상 & 여행",
+        createdAt: "2024-01-23",
+        views: 4521,
+        likes: 456,
+        author: "이원경",
+        featured: true
+      },
+      {
+        id: "travel-2",
+        title: "제주도 숨은 카페 탐방기",
+        excerpt: "제주도의 아름다운 풍경과 함께 즐기는 특별한 카페들을 소개합니다.",
+        category: "일상 & 여행",
+        createdAt: "2024-01-14",
+        views: 2134,
+        likes: 167,
+        author: "이원경"
+      },
+      {
+        id: "travel-3",
+        title: "서울 감성 카페 베스트 10",
+        excerpt: "개발자의 시선으로 바라본 서울의 감성적인 카페들을 추천합니다.",
+        category: "일상 & 여행",
+        createdAt: "2024-01-11",
+        views: 1789,
+        likes: 123,
+        author: "이원경"
+      }
+    ],
+    "python-vibe": [
+      {
+        id: "python-1",
+        title: "Python으로 시작하는 AI 이미지 처리",
+        excerpt: "Python과 OpenCV를 활용한 이미지 처리 기초부터 AI 연동까지 완벽 가이드입니다.",
+        category: "Python & 바이브코딩",
+        createdAt: "2024-01-20",
+        views: 2345,
+        likes: 187,
+        author: "이원경"
+      },
+      {
+        id: "python-2",
+        title: "FastAPI로 만드는 이미지 생성 API",
+        excerpt: "FastAPI를 사용해 AI 이미지 생성 서비스의 백엔드 API를 구축해보세요.",
+        category: "Python & 바이브코딩",
+        createdAt: "2024-01-13",
+        views: 1567,
+        likes: 134,
+        author: "이원경"
+      }
+    ],
     aws: [
       {
         id: "aws-1",
@@ -87,6 +230,11 @@ const getCategoryPosts = (category: string): Post[] => {
 };
 
 const categoryInfo = {
+  comfyui: { title: "ComfyUI", description: "AI 이미지 생성의 혁신적 도구", color: "text-purple-400" },
+  "ai-image": { title: "AI 이미지 생성", description: "창의적 AI 아트의 세계", color: "text-pink-400" },
+  "prompt-engineering": { title: "프롬프트 엔지니어링", description: "AI와 소통하는 예술", color: "text-indigo-400" },
+  "travel-cafe": { title: "일상 & 여행", description: "삶의 여유와 감성을 담다", color: "text-green-400" },
+  "python-vibe": { title: "Python & 바이브코딩", description: "코딩의 재미와 창의성", color: "text-yellow-400" },
   aws: { title: "AWS", description: "클라우드 서비스 완전 정복", color: "text-orange-400" },
   linux: { title: "Linux", description: "리눅스 시스템 관리", color: "text-blue-400" },
   nodejs: { title: "Node.js", description: "백엔드 개발의 핵심", color: "text-green-400" },

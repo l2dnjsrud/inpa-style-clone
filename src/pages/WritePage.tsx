@@ -13,7 +13,7 @@ import { Navbar } from '@/components/Navbar';
 import { MediaUpload } from '@/components/MediaUpload';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { useAchievements } from '@/hooks/useAchievements';
+
 import { supabase } from '@/integrations/supabase/client';
 import { X } from 'lucide-react';
 
@@ -34,7 +34,7 @@ export default function WritePage() {
   
   const { user } = useAuth();
   const { toast } = useToast();
-  const { checkAchievements } = useAchievements();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -104,13 +104,8 @@ export default function WritePage() {
     } else {
       toast({
         title: "초안 저장 완료",
-        description: "포스트가 초안으로 저장되었습니다. (+25 XP)"
+        description: "포스트가 초안으로 저장되었습니다."
       });
-      
-      // Check for achievements after creating post
-      setTimeout(() => {
-        checkAchievements();
-      }, 1000);
       
       navigate('/dashboard');
     }
@@ -154,13 +149,8 @@ export default function WritePage() {
     } else {
       toast({
         title: "포스트 발행 완료",
-        description: "포스트가 성공적으로 발행되었습니다. (+50 XP)"
+        description: "포스트가 성공적으로 발행되었습니다."
       });
-      
-      // Check for achievements after publishing post
-      setTimeout(() => {
-        checkAchievements();
-      }, 1000);
       
       navigate('/dashboard');
     }

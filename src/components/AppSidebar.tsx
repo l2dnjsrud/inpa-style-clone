@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 const navigationItems = [
   { title: "Home", url: "/", icon: Home },
   { title: "All Posts", url: "/posts", icon: FileText },
+  { title: "Profile", url: "/profile", icon: User },
   { title: "Admin", url: "/admin", icon: Shield },
 ];
 
@@ -113,8 +114,8 @@ export function AppSidebar() {
             <div className="flex items-center gap-3">
               <Avatar className="h-12 w-12 border-2 border-sidebar-primary">
                 <AvatarImage src="/placeholder.svg" />
-                <AvatarFallback className="bg-gradient-hero text-primary-foreground font-bold">
-                  WK
+                <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold">
+                  이원경
                 </AvatarFallback>
               </Avatar>
               <div>
@@ -150,8 +151,8 @@ export function AppSidebar() {
           <div className="p-3 border-b border-sidebar-border">
             <Avatar className="h-10 w-10 mx-auto border-2 border-sidebar-primary">
               <AvatarImage src="/placeholder.svg" />
-              <AvatarFallback className="bg-gradient-hero text-primary-foreground font-bold text-sm">
-                WK
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold text-sm">
+                이원경
               </AvatarFallback>
             </Avatar>
           </div>
@@ -199,21 +200,21 @@ export function AppSidebar() {
                   <SidebarMenuItem key={category.title}>
                     <SidebarMenuButton asChild className={getNavClasses(category.url)}>
                       <NavLink to={category.url}>
-                        <div className="flex items-center gap-3 w-full">
-                          <category.icon className="h-4 w-4 text-muted-foreground" />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              {category.rank && category.rank <= 3 && (
-                                <span className="text-xs font-bold text-primary">
-                                  #{category.rank}
-                                </span>
-                              )}
-                              <span className="truncate">{category.title}</span>
-                            </div>
-                            <span className="text-xs text-muted-foreground">
-                              {category.count} Articles
-                            </span>
+                        <div className="flex items-center justify-between w-full">
+                          <div className="flex items-center gap-2">
+                            <category.icon className="h-4 w-4" />
+                            <span>{category.title}</span>
+                            {category.rank && (
+                              <span className="text-xs bg-yellow-100 text-yellow-800 px-1 rounded">
+                                #{category.rank}
+                              </span>
+                            )}
                           </div>
+                          {category.count > 0 && (
+                            <span className="text-xs text-muted-foreground">
+                              {category.count}
+                            </span>
+                          )}
                         </div>
                       </NavLink>
                     </SidebarMenuButton>
@@ -227,7 +228,7 @@ export function AppSidebar() {
           {collapsed && (
             <SidebarGroupContent>
               <SidebarMenu>
-                {categoriesWithCounts.slice(0, 6).map((category) => (
+                {categoriesWithCounts.slice(0, 4).map((category) => (
                   <SidebarMenuItem key={category.title}>
                     <SidebarMenuButton asChild className={getNavClasses(category.url)}>
                       <NavLink to={category.url} title={`${category.title} (${category.count})`}>

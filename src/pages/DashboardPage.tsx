@@ -10,9 +10,8 @@ import { Navbar } from '@/components/Navbar';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Edit3, Trash2, Eye, EyeOff, Plus, Gamepad2 } from 'lucide-react';
-import { ExperienceWidget } from '@/components/ExperienceWidget';
-import { AchievementGallery } from '@/components/AchievementGallery';
+import { Edit3, Trash2, Eye, EyeOff, Plus, BarChart3 } from 'lucide-react';
+
 
 interface Post {
   id: string;
@@ -154,40 +153,72 @@ export default function DashboardPage() {
           
           <div className="overflow-y-auto h-[calc(100vh-4rem)] p-6">
             <div className="max-w-6xl mx-auto">
-              {/* Top Row - Gamification Widgets */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="lg:col-span-1">
-                  <ExperienceWidget compact />
-                </div>
-                <div className="lg:col-span-2">
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="flex items-center gap-2">
-                        <Gamepad2 className="w-5 h-5" />
-                        Quick Actions
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex gap-3">
-                        <Button 
-                          onClick={() => navigate('/write')} 
-                          className="flex items-center gap-2"
-                        >
-                          <Plus className="h-4 w-4" />
-                          Write Post
-                        </Button>
-                        <Button 
-                          variant="outline"
-                          onClick={() => navigate('/game')}
-                          className="flex items-center gap-2"
-                        >
-                          <Gamepad2 className="h-4 w-4" />
-                          View Progress
-                        </Button>
+              {/* Dashboard Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <BarChart3 className="w-5 h-5" />
+                      통계
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground">총 포스트</span>
+                        <span className="font-medium">{posts.length}</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground">발행됨</span>
+                        <span className="font-medium">{posts.filter(p => p.status === 'published').length}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-muted-foreground">초안</span>
+                        <span className="font-medium">{posts.filter(p => p.status === 'draft').length}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg">빠른 작업</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <Button 
+                        onClick={() => navigate('/write')} 
+                        className="w-full flex items-center gap-2"
+                      >
+                        <Plus className="h-4 w-4" />
+                        새 포스트 작성
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={() => navigate('/profile')}
+                        className="w-full flex items-center gap-2"
+                      >
+                        <BarChart3 className="h-4 w-4" />
+                        프로필 보기
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg">최근 활동</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-sm text-muted-foreground">
+                      {posts.length > 0 ? (
+                        <p>최근 포스트: {new Date(posts[0].created_at).toLocaleDateString()}</p>
+                      ) : (
+                        <p>아직 포스트가 없습니다</p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
               
               <div className="flex justify-between items-center mb-6">

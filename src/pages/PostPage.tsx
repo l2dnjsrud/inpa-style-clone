@@ -12,6 +12,7 @@ import { CommentSection } from "@/components/CommentSection";
 import { PopularPosts } from "@/components/PopularPosts";
 import { TagCloud } from "@/components/TagCloud";
 import { usePostInteractions } from "@/hooks/usePostInteractions";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Post {
   id: string;
@@ -30,43 +31,117 @@ const PostPage = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [popularPosts, setPopularPosts] = useState<any[]>([]);
+  const [tags, setTags] = useState<{ name: string; count: number }[]>([]);
   const { interactions, incrementViews, toggleLike, getPostInteraction } = usePostInteractions();
 
   useEffect(() => {
-    // Simulate loading and finding the post
     const loadPost = async () => {
+      if (!id) {
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
       
-      const mockPosts: Record<string, Post> = {
-        "1": {
-          id: "1",
-          title: "ComfyUI 시작하기",
-          excerpt: "ComfyUI로 AI 이미지 생성을 시작하는 방법을 알아보세요.",
-          content: `<h2>ComfyUI로 AI 이미지 생성 시작하기</h2><p>ComfyUI는 강력한 노드 기반 AI 이미지 생성 도구입니다.</p>`,
-          category: "AI 이미지 생성",
-          createdAt: "2024-01-15",
-          views: 0,
-          likes: 0,
-          author: "이원경",
-        },
-      };
+      try {
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('id', id)
+          .eq('status', 'published')
+          .single();
 
-      const foundPost = mockPosts[id || ""];
-      
-      setTimeout(async () => {
-        setPost(foundPost || null);
-        setIsLoading(false);
+        if (error) {
+          console.error('Error fetching post:', error);
+          setPost(null);
+          setIsLoading(false);
+          return;
+        }
+
+        const formattedPost: Post = {
+          id: data.id,
+          title: data.title,
+          content: data.content || '',
+          excerpt: data.excerpt || '',
+          category: data.category,
+          createdAt: data.created_at,
+          views: data.views || 0,
+          likes: data.likes || 0,
+          author: '이원경'
+        };
+
+        setPost(formattedPost);
         
         // Increment view count when post is loaded
-        if (foundPost && id) {
-          await incrementViews(id);
-          // Get updated interaction data
-          await getPostInteraction(id);
+        await incrementViews(id);
+        // Get updated interaction data
+        await getPostInteraction(id);
+      } catch (error) {
+        console.error('Error loading post:', error);
+        setPost(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const loadSidebarData = async () => {
+      try {
+        // Fetch popular posts
+        const { data: popularData, error: popularError } = await supabase
+          .from('posts')
+          .select('id, title, category, views, created_at')
+          .eq('status', 'published')
+          .order('views', { ascending: false })
+          .limit(5);
+
+        if (!popularError && popularData) {
+          setPopularPosts(popularData.map(post => ({
+            id: post.id,
+            title: post.title,
+            category: post.category,
+            views: post.views || 0,
+            createdAt: post.created_at
+          })));
         }
-      }, 500);
+
+        // Generate tags from all posts
+        const { data: allPosts, error: postsError } = await supabase
+          .from('posts')
+          .select('category, tags')
+          .eq('status', 'published');
+
+        if (!postsError && allPosts) {
+          const tagCount: Record<string, number> = {};
+          
+          allPosts.forEach(post => {
+            // Count categories as tags
+            if (post.category) {
+              tagCount[post.category] = (tagCount[post.category] || 0) + 1;
+            }
+            
+            // Count actual tags if they exist
+            if (post.tags && Array.isArray(post.tags)) {
+              post.tags.forEach(tag => {
+                tagCount[tag] = (tagCount[tag] || 0) + 1;
+              });
+            }
+          });
+          
+          const tagsArray = Object.entries(tagCount)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 10);
+          
+          setTags(tagsArray);
+        }
+      } catch (error) {
+        console.error('Error loading sidebar data:', error);
+      }
     };
 
     loadPost();
+    loadSidebarData();
   }, [id, incrementViews, getPostInteraction]);
 
   const handleLike = async () => {
@@ -203,38 +278,19 @@ const PostPage = () => {
                   <div className="mt-8">
                     <CommentSection 
                       postId={post.id}
-                      comments={[
-                        {
-                          id: "1",
-                          author: "개발자A",
-                          content: "정말 유용한 포스트네요!",
-                          createdAt: "2024-01-16",
-                          likes: 5
-                        }
-                      ]}
+                      comments={[]}
                     />
                   </div>
                 </div>
 
                 <div className="w-80 space-y-6">
                   <PopularPosts 
-                    posts={[
-                      {
-                        id: "popular-1",
-                        title: "React 18의 새로운 기능들",
-                        category: "React",
-                        views: 1250,
-                        createdAt: "2024-01-15"
-                      }
-                    ]}
+                    posts={popularPosts}
                     title="인기 포스트"
                   />
                   
                   <TagCloud 
-                    tags={[
-                      { name: "React", count: 15 },
-                      { name: "JavaScript", count: 12 }
-                    ]}
+                    tags={tags}
                     onTagClick={(tag) => console.log('Tag clicked:', tag)}
                   />
                 </div>

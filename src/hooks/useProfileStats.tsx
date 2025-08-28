@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { useBlogStatistics } from './useBlogStatistics';
 
 interface ProfileStats {
   totalPosts: number;
   totalViews: number;
   totalLikes: number;
-  followers: number;
+  totalVisitors: number;
   joinedDate: string;
-  consecutiveDays: number;
+  blogOperationDays: number;
   categories: string[];
   topPost: string;
   recentActivity: ActivityItem[];
@@ -42,13 +43,14 @@ interface LanguageStat {
 
 export function useProfileStats() {
   const { user } = useAuth();
+  const { statistics: blogStats } = useBlogStatistics();
   const [profileStats, setProfileStats] = useState<ProfileStats>({
     totalPosts: 0,
     totalViews: 0,
     totalLikes: 0,
-    followers: 0,
+    totalVisitors: 0,
     joinedDate: '2024년 1월',
-    consecutiveDays: 0,
+    blogOperationDays: 0,
     categories: [],
     topPost: '',
     recentActivity: [],
@@ -198,11 +200,11 @@ export function useProfileStats() {
         totalPosts: posts?.length || 0,
         totalViews: (posts?.reduce((sum, post) => sum + (post.views || 0), 0) || 0),
         totalLikes: (posts?.reduce((sum, post) => sum + (post.likes || 0), 0) || 0),
-        followers: Math.floor(Math.random() * 50) + 10, // Simulated for now
+        totalVisitors: blogStats.totalVisitors,
         joinedDate: profile?.created_at ? 
           new Date(profile.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long' }) : 
           '2024년 1월',
-        consecutiveDays: Math.min(recentPosts.length, 30),
+        blogOperationDays: blogStats.blogOperationDays,
         categories: Object.keys(categoryStats),
         topPost: posts?.[0]?.title || 'No posts yet',
         recentActivity,

@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, FileText, Heart, Calendar } from "lucide-react";
+import { Users, FileText, Calendar } from "lucide-react";
+import { useBlogStatistics } from "@/hooks/useBlogStatistics";
+import { useAuth } from "@/hooks/useAuth";
 
 interface StatItem {
   icon: React.ElementType;
   label: string;
   value: number;
   suffix?: string;
+  loading?: boolean;
 }
-
-const stats: StatItem[] = [
-  { icon: Users, label: "총 방문자", value: 125430 },
-  { icon: FileText, label: "총 포스팅", value: 287 },
-  { icon: Heart, label: "구독자", value: 1240 },
-  { icon: Calendar, label: "블로그 운영", value: 1250, suffix: "일" },
-];
 
 function CountUpNumber({ 
   end, 
@@ -55,10 +51,35 @@ function CountUpNumber({
 }
 
 export function StatsSection() {
+  const { statistics, loading } = useBlogStatistics();
+  const { user } = useAuth();
+
+  const stats: StatItem[] = [
+    { 
+      icon: Users, 
+      label: "총 방문자", 
+      value: statistics.totalVisitors,
+      loading 
+    },
+    { 
+      icon: FileText, 
+      label: "총 포스팅", 
+      value: statistics.totalPosts,
+      loading 
+    },
+    { 
+      icon: Calendar, 
+      label: "블로그 운영", 
+      value: statistics.blogOperationDays, 
+      suffix: "일",
+      loading 
+    },
+  ];
+
   return (
     <section className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.map((stat, index) => (
             <Card 
               key={stat.label} 
@@ -72,10 +93,16 @@ export function StatsSection() {
                   </div>
                 </div>
                 
-                <CountUpNumber 
-                  end={stat.value} 
-                  suffix={stat.suffix} 
-                />
+                {stat.loading ? (
+                  <div className="text-3xl md:text-4xl font-bold text-primary glow-text">
+                    <div className="animate-pulse bg-muted rounded h-8 w-16 mx-auto"></div>
+                  </div>
+                ) : (
+                  <CountUpNumber 
+                    end={stat.value} 
+                    suffix={stat.suffix} 
+                  />
+                )}
                 
                 <p className="text-sm text-muted-foreground mt-2 font-medium">
                   {stat.label}

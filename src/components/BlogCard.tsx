@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Eye, Heart, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { usePostInteractions } from "@/hooks/usePostInteractions";
 
 interface BlogCardProps {
   id: string;
@@ -26,6 +28,16 @@ export function BlogCard({
   author,
   featured = false,
 }: BlogCardProps) {
+  const { interactions, getPostInteraction } = usePostInteractions();
+
+  useEffect(() => {
+    // Load interaction data for this post
+    getPostInteraction(id);
+  }, [id, getPostInteraction]);
+
+  const currentViews = interactions[id]?.views ?? views;
+  const currentLikes = interactions[id]?.likes ?? likes;
+
   return (
     <Link to={`/post/${id}`} className="block">
       <Card className={`hover:shadow-lg transition-all duration-300 cursor-pointer h-full group ${
@@ -42,11 +54,11 @@ export function BlogCard({
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Eye className="w-3 h-3" />
-                <span>{views.toLocaleString()}</span>
+                <span>{currentViews.toLocaleString()}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Heart className="w-3 h-3" />
-                <span>{likes}</span>
+                <span>{currentLikes}</span>
               </div>
             </div>
           </div>

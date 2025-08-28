@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AdminPostList } from "@/components/admin/AdminPostList";
 import { AdminPostEditor } from "@/components/admin/AdminPostEditor";
 import { CategoryManager } from "@/components/admin/CategoryManager";
+import { PostInteractionManager } from "@/components/admin/PostInteractionManager";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -146,9 +147,10 @@ const AdminPage = () => {
               </div>
 
               <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
+                <TabsList className="grid w-full grid-cols-3 lg:w-[600px]">
                   <TabsTrigger value="posts">포스트 관리</TabsTrigger>
                   <TabsTrigger value="categories">카테고리 관리</TabsTrigger>
+                  <TabsTrigger value="interactions">상호작용 관리</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="posts" className="mt-6">
@@ -168,6 +170,10 @@ const AdminPage = () => {
 
                 <TabsContent value="categories" className="mt-6">
                   <CategoryManager />
+                </TabsContent>
+
+                <TabsContent value="interactions" className="mt-6">
+                  <PostInteractionManager />
                 </TabsContent>
               </Tabs>
             </div>

@@ -11,6 +11,7 @@ import { Navbar } from "@/components/Navbar";
 import { CommentSection } from "@/components/CommentSection";
 import { PopularPosts } from "@/components/PopularPosts";
 import { TagCloud } from "@/components/TagCloud";
+import { usePostInteractions } from "@/hooks/usePostInteractions";
 
 interface Post {
   id: string;
@@ -29,10 +30,11 @@ const PostPage = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { interactions, incrementViews, toggleLike, getPostInteraction } = usePostInteractions();
 
   useEffect(() => {
     // Simulate loading and finding the post
-    const loadPost = () => {
+    const loadPost = async () => {
       setIsLoading(true);
       
       const mockPosts: Record<string, Post> = {
@@ -51,18 +53,28 @@ const PostPage = () => {
 
       const foundPost = mockPosts[id || ""];
       
-      setTimeout(() => {
+      setTimeout(async () => {
         setPost(foundPost || null);
         setIsLoading(false);
+        
+        // Increment view count when post is loaded
+        if (foundPost && id) {
+          await incrementViews(id);
+          // Get updated interaction data
+          await getPostInteraction(id);
+        }
       }, 500);
     };
 
     loadPost();
-  }, [id]);
+  }, [id, incrementViews, getPostInteraction]);
 
-  const handleLike = () => {
-    if (post) {
-      setPost({ ...post, likes: post.likes + 1 });
+  const handleLike = async () => {
+    if (post && id) {
+      const result = await toggleLike(id);
+      if (result) {
+        setPost({ ...post, likes: result.likes });
+      }
     }
   };
 
@@ -161,16 +173,16 @@ const PostPage = () => {
                         <div className="flex items-center gap-4 text-sm text-muted-foreground">
                           <div className="flex items-center gap-1">
                             <Eye className="w-4 h-4" />
-                            {post.views.toLocaleString()} 조회
+                            {interactions[id || ""]?.views || post.views} 조회
                           </div>
                           <div className="flex items-center gap-1">
                             <Heart className="w-4 h-4" />
-                            {post.likes} 좋아요
+                            {interactions[id || ""]?.likes || post.likes} 좋아요
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <Button variant="outline" size="sm" onClick={handleLike}>
-                            <Heart className="w-4 h-4 mr-2" />
+                            <Heart className={`w-4 h-4 mr-2 ${interactions[id || ""]?.isLiked ? 'fill-red-500 text-red-500' : ''}`} />
                             좋아요
                           </Button>
                           <Button variant="outline" size="sm" onClick={handleShare}>

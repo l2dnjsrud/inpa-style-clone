@@ -32,8 +32,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "ComfyUI의 기본 개념부터 고급 노드 활용까지, AI 이미지 생성의 모든 것을 알아보세요.",
         category: "ComfyUI",
         createdAt: "2024-01-20",
-        views: 2156,
-        likes: 189,
+        views: 0,
+        likes: 0,
         author: "이원경",
         featured: true
       },
@@ -43,8 +43,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "효율적인 ComfyUI 워크플로우 구성으로 생산성을 극대화하는 방법을 소개합니다.",
         category: "ComfyUI",
         createdAt: "2024-01-18",
-        views: 1834,
-        likes: 145,
+        views: 0,
+        likes: 0,
         author: "이원경"
       },
       {
@@ -53,8 +53,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "나만의 ComfyUI 커스텀 노드를 개발하여 워크플로우를 확장해보세요.",
         category: "ComfyUI",
         createdAt: "2024-01-15",
-        views: 1267,
-        likes: 98,
+        views: 0,
+        likes: 0,
         author: "이원경"
       }
     ],
@@ -65,8 +65,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "Stable Diffusion의 핵심 개념과 고품질 이미지 생성 기법을 완벽하게 정리했습니다.",
         category: "AI 이미지 생성",
         createdAt: "2024-01-22",
-        views: 3421,
-        likes: 278,
+        views: 0,
+        likes: 0,
         author: "이원경",
         featured: true
       },
@@ -76,8 +76,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "SDXL, MidJourney, DALL-E 3 등 주요 AI 이미지 생성 모델들을 비교 분석합니다.",
         category: "AI 이미지 생성",
         createdAt: "2024-01-19",
-        views: 2567,
-        likes: 201,
+        views: 0,
+        likes: 0,
         author: "이원경"
       },
       {
@@ -86,8 +86,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "나만의 스타일을 만들어내는 LoRA 훈련 방법을 단계별로 설명합니다.",
         category: "AI 이미지 생성",
         createdAt: "2024-01-16",
-        views: 1923,
-        likes: 156,
+        views: 0,
+        likes: 0,
         author: "이원경"
       }
     ],
@@ -98,8 +98,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "효과적인 프롬프트 작성을 위한 기본 원칙과 실전 기법들을 알아보세요.",
         category: "프롬프트 엔지니어링",
         createdAt: "2024-01-21",
-        views: 1876,
-        likes: 142,
+        views: 0,
+        likes: 0,
         author: "이원경"
       },
       {
@@ -108,8 +108,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "원하지 않는 요소를 제거하는 네거티브 프롬프트의 효과적인 사용법을 배워보세요.",
         category: "프롬프트 엔지니어링",
         createdAt: "2024-01-17",
-        views: 1345,
-        likes: 98,
+        views: 0,
+        likes: 0,
         author: "이원경"
       }
     ],
@@ -120,8 +120,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "Golden Hour 콘서트를 따라다니며 느낀 감동과 각 도시별 맛집 정보를 공유합니다.",
         category: "일상 & 여행",
         createdAt: "2024-01-23",
-        views: 4521,
-        likes: 456,
+        views: 0,
+        likes: 0,
         author: "이원경",
         featured: true
       },
@@ -131,8 +131,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "제주도의 아름다운 풍경과 함께 즐기는 특별한 카페들을 소개합니다.",
         category: "일상 & 여행",
         createdAt: "2024-01-14",
-        views: 2134,
-        likes: 167,
+        views: 0,
+        likes: 0,
         author: "이원경"
       },
       {
@@ -141,8 +141,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "개발자의 시선으로 바라본 서울의 감성적인 카페들을 추천합니다.",
         category: "일상 & 여행",
         createdAt: "2024-01-11",
-        views: 1789,
-        likes: 123,
+        views: 0,
+        likes: 0,
         author: "이원경"
       }
     ],
@@ -153,8 +153,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "Python과 OpenCV를 활용한 이미지 처리 기초부터 AI 연동까지 완벽 가이드입니다.",
         category: "Python & 바이브코딩",
         createdAt: "2024-01-20",
-        views: 2345,
-        likes: 187,
+        views: 0,
+        likes: 0,
         author: "이원경"
       },
       {
@@ -163,8 +163,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "FastAPI를 사용해 AI 이미지 생성 서비스의 백엔드 API를 구축해보세요.",
         category: "Python & 바이브코딩",
         createdAt: "2024-01-13",
-        views: 1567,
-        likes: 134,
+        views: 0,
+        likes: 0,
         author: "이원경"
       }
     ],
@@ -175,8 +175,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "AWS Lambda를 활용한 서버리스 아키텍처 구축 방법을 상세히 알아보겠습니다. 비용 최적화부터 성능 튜닝까지 모든 것을 다룹니다.",
         category: "AWS",
         createdAt: "2024-01-15",
-        views: 1230,
-        likes: 89,
+        views: 0,
+        likes: 0,
         author: "개발자"
       },
       {
@@ -185,8 +185,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "AWS EC2 인스턴스의 성능을 최적화하고 비용을 절감하는 실전 기법들을 소개합니다.",
         category: "AWS",
         createdAt: "2024-01-12",
-        views: 987,
-        likes: 67,
+        views: 0,
+        likes: 0,
         author: "클라우드 전문가"
       }
     ],
@@ -197,8 +197,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "최신 JavaScript 기능들을 활용한 모던 개발 방법론을 알아보겠습니다.",
         category: "JavaScript",
         createdAt: "2024-01-18",
-        views: 1456,
-        likes: 123,
+        views: 0,
+        likes: 0,
         author: "프론트엔드 개발자"
       },
       {
@@ -207,8 +207,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "비동기 JavaScript의 핵심인 Async/Await를 완벽하게 이해하고 활용해보세요.",
         category: "JavaScript",
         createdAt: "2024-01-16",
-        views: 892,
-        likes: 78,
+        views: 0,
+        likes: 0,
         author: "JS 개발자"
       }
     ],
@@ -219,8 +219,8 @@ const getCategoryPosts = (category: string): Post[] => {
         excerpt: "나만의 VS Code 확장을 만들어보세요. 기초부터 배포까지 완벽 가이드입니다.",
         category: "개발도구",
         createdAt: "2024-01-14",
-        views: 756,
-        likes: 45,
+        views: 0,
+        likes: 0,
         author: "도구 개발자"
       }
     ]

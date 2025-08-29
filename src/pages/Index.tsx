@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { StatsSection } from "@/components/StatsSection";
-import { CategoriesGrid } from "@/components/CategoriesGrid";
+
 import { FeaturedPosts } from "@/components/FeaturedPosts";
 import { RecentPosts } from "@/components/RecentPosts";
 
@@ -30,7 +30,7 @@ const Index = () => {
               </div>
             </div>
             <StatsSection />
-            <CategoriesGrid />
+
           </div>
         </main>
       </div>

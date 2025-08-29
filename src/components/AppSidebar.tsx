@@ -13,7 +13,6 @@ import {
   ChevronRight,
   User,
   Search,
-  Crown,
   Shield
 } from "lucide-react";
 
@@ -183,8 +182,8 @@ export function AppSidebar() {
             onClick={() => !collapsed && toggleGroup("categories")}
           >
             <div className="flex items-center gap-2">
-              <Crown className="h-4 w-4 text-primary" />
-              {!collapsed && "인기있는 카테고리"}
+              <FileText className="h-4 w-4 text-primary" />
+              {!collapsed && "카테고리"}
             </div>
             {!collapsed && (
               expandedGroups.has("categories") ? 
